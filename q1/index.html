@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details</title>
+    <script src="./student.js"></script>
+    <script>
+        var studentList = new db();
+        function createclass(){
+            let name= document.getElementById("name").value
+            let course= document.getElementById("course").value
+            let gender= document.getElementsByName("gen").value
+
+            let student= new Student(name,course,gender)
+            studentList.addStudent(student)
+
+        }
+
+        function display(){
+            let data =studentList.getAll();
+            console.log(data);
+            let heading = `<tr><th>Name</th><th>Course</th><th>Gender</th></tr>`;
+            document.getElementById("tblRecords").innerHTML= heading
+            data.forEach(stud => {
+                let row = `<tr><td>${stud.name}</td><td>${stud.course}</td><td>${stud.gender}</td></tr>`
+                document.getElementById('tblRecords').innerHTML += row;
+        })
+    }
+    </script>
+
+</head>
+<body>
+    <div>
+        <h1>Student details</h1>
+        <p><input id = "name"type="text" placeholder="Enter your name"></p>
+        <select id="course">
+            <option>Computer Science</option>
+            <option>Political Science</option>
+            <option>History</option>
+        </select>
+        <p>Gender:</p>
+        <div id="gend">
+        <p><input type="radio" name="gen">female</p>
+        <p><input type="radio" name="gen">male</p>
+        <p><input type="radio" name="gen">Others</p>
+        </div>
+        <p><button onclick="createclass()">Add</button></p>
+
+    </div>
+    <p><button onclick="display()"> Display</button></p>
+    <div id="data">
+        <table id="tblRecords" border="1" width="100%">
+               
+        </table>
+    </div>
+</body>
+</html>

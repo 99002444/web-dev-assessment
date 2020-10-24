@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./emp.js"></script>
+    <script src="./jquery-3.5.1.min.js"></script>
+    <script>
+        let db = new empManager();
+        function init(){
+            $("#div1").hide()
+            $("#div3").hide()
+            db.addEmployee(new employee(123, "Anusree", "Kochi"));
+
+
+
+            $("#view").click(function(){
+
+            $("#div1").show()
+            $("#div3").hide()
+           let heading = `<tr><th>Emp ID</th><th>Emp Name</th><th>Emp Address</th>`;
+            $("#tblRecords").html(heading);
+            $("#div1").show()
+
+            let data = db.getAll();
+            data.forEach(emp => {
+                let row = `<tr><td>${emp.empId}</td><td>${emp.empName}</td><td>${emp.empAddress}</td>`;
+                $('#tblRecords').append(row);
+
+                    
+            });
+        })
+
+         //Called when the user clicks the link of adding employee
+        $("#newEmp").click(()=>{
+ 
+            $("#div1").hide()
+            $("#div3").show()
+        })
+        //Called when the user clicks Add Employee Button;
+        $("#add").click(function(){
+            let id = $("#newId").val();
+            let name = $("#newName").val();
+            let address = $("#newAddress").val();
+            //create the employee object...
+            let emp = new employee(id, name, address)
+            db.addEmployee(emp);
+            $("#newId").val("") ;
+            $("#newName").val("") ;
+            $("#newAddress").val("") ;
+            alert("Employee added successfully");
+        })
+
+
+    }
+
+            
+
+        $(document).ready(init)
+
+
+
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <body >
+        <header>
+            <nav>
+                <a href="#" id="view" >View All</a>
+                <a href="#" id="newEmp">New Employee</a>
+            </nav>
+        </header>
+        <section>
+           <div id="div1">
+               <h2>Employee List</h2>
+               <table id="tblRecords" border="1" width="100%">
+                   
+               </table>
+           </div>
+
+           <div id="div3">
+                <h2>Add the Details of the Employee</h2>
+                <p>Employee ID: <input type="number" id="newId"> </p>
+                <p>Employee Name: <input type="text" id="newName"></p>
+                <p>Employee Address: <input type="text" id="newAddress"></p>
+                <p><button id="add">Add Employee</button></p>
+           </div> 
+        </section>
+    </body>
+    
+</body>
+</html>
